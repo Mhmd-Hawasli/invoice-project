@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $sections = Section::all();
         $products = product::all();
-        return view('pages.products.dashboard', compact('sections', 'products'));
+        return view('pages.products.all-products', compact('sections', 'products'));
     }
 
     /**

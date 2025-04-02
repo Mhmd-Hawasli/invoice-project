@@ -16,7 +16,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = Section::all();
-        return view('pages.sections.dashboard', compact('sections')); // Pass 'sections' as a string
+        return view('pages.sections.all-sections', compact('sections')); // Pass 'sections' as a string
     }
     /**
      * Show the form for creating a new resource.

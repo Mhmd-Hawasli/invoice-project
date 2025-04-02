@@ -10,7 +10,6 @@
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
-
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
@@ -18,6 +17,7 @@
                     الفواتير</span>
             </div>
         </div>
+
     </div>
     <!-- breadcrumb -->
 @endsection
@@ -27,42 +27,44 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header pb-0">
-                    <div class="col-sm-6 col-md-4 col-xl-3">
-                        <a class="btn btn-outline-primary btn-block" href="{{ route('invoices.create') }}">إضافة
-                            فاتورة</a>
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0">Invoice Table</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
+                    <p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table.</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table text-md-nowrap" id="example1" data-page-length='50'>
+                        <table class="table text-md-nowrap" id="example1">
                             <thead>
                                 <tr>
-                                    <th class="wd-15p border-bottom-0">الرقم </th>
-                                    <th class="wd-15p border-bottom-0">اسم القسم</th>
-                                    <th class="wd-20p border-bottom-0">الوصف</th>
-                                    <th class="wd-15p border-bottom-0">العمليات</th>
-
+                                    <th class="wd-15p border-bottom-0">First name</th>
+                                    <th class="wd-15p border-bottom-0">Last name</th>
+                                    <th class="wd-20p border-bottom-0">Position</th>
+                                    <th class="wd-15p border-bottom-0">Start date</th>
+                                    <th class="wd-10p border-bottom-0">Salary</th>
+                                    <th class="wd-25p border-bottom-0">E-mail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
+                                    <td>Bella</td>
+                                    <td>Chloe</td>
+                                    <td>System Developer</td>
+                                    <td>2018/03/12</td>
+                                    <td>$654,765</td>
+                                    <td>b.Chloe@datatables.net</td>
                                 </tr>
-
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <!--/div-->
 
-        @include('pages.sections.modals.add')
-        @include('pages.sections.modals.edit')
-        @include('pages.sections.modals.delete')
+
+
 
 
 
@@ -93,38 +95,4 @@
     <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
-
-    <!--edit modal script-->
-    <script>
-        $('#editSectionModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var section_name = button.data('section_name');
-            var description = button.data('description');
-
-            var modal = $(this);
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #section_name').val(section_name);
-            modal.find('.modal-body #description').val(description);
-
-            // Set the form action dynamically
-            modal.find('#edit-form').attr('action', '/sections/' + id);
-        });
-    </script>
-
-    <!--delete modal script-->
-    <script>
-        $('#deleteSectionModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var id = button.data('id')
-            var section_name = button.data('section_name')
-            var modal = $(this)
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #section_name').val(section_name);
-
-            // Set the form action dynamically
-            modal.find('#delete-form').attr('action', '/sections/' + id);
-        })
-    </script>
 @endsection
