@@ -6,6 +6,7 @@ use App\Models\product;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
     {
         $sections = Section::all();
         $products = product::all();
-        return view('pages.products.all-products', compact('sections', 'products'));
+        return view('pages.products.products-dashboard', compact('sections', 'products'));
     }
 
     /**
@@ -26,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return "some text";
     }
 
     /**
@@ -36,6 +37,9 @@ class ProductController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validated();
+
+        // Add the authenticated user's ID to the data
+        $validatedData['user_id'] = Auth::user()->id;
 
         // Create the Product record
         product::create($validatedData);
@@ -86,16 +90,13 @@ class ProductController extends Controller
      */
     public function destroy(product $product)
     {
-        try
-        {
+        try {
             // Delete the product
             $product->delete();
 
             // Redirect back with a success message
             return redirect()->back()->with('success', 'تم حذف المنتج بنجاح');
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             // Redirect back with an error message
             return redirect()->back()->with('error', 'لم يتم حذف المنتج بنجاح' . $e->getMessage());
         }

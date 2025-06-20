@@ -37,20 +37,50 @@
                         <table class="table text-md-nowrap" id="example1" data-page-length='50'>
                             <thead>
                                 <tr>
-                                    <th class="wd-15p border-bottom-0">الرقم </th>
-                                    <th class="wd-15p border-bottom-0">اسم القسم</th>
-                                    <th class="wd-20p border-bottom-0">الوصف</th>
-                                    <th class="wd-15p border-bottom-0">العمليات</th>
-
+                                    <th style="width: 10%; white-space: normal;">الرقم</th>
+                                    <th style="width: 10%; white-space: normal;">رقم الفاتورة</th>
+                                    <th style="width: 10%; white-space: normal;">تاريخ الفاتورة</th>
+                                    <th style="width: 10%; white-space: normal;">تاريخ التحصيل</th>
+                                    <th style="width: 10%; white-space: normal;">مبلغ التحصيل</th>
+                                    <th style="width: 10%; white-space: normal;">مبلغ العمولة</th>
+                                    <th style="width: 10%; white-space: normal;">قيمة الخصم</th>
+                                    <th style="width: 10%; white-space: normal;">الضريبة</th>
+                                    <th style="width: 10%; white-space: normal;">الإجمالي</th>
+                                    <th style="width: 10%; white-space: normal;">الحالة</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                </tr>
+                                @php
+                                    $i = 0;
+                                @endphp
+                                @foreach ($invoices as $invoice)
+                                    @php
+                                        $i++;
+                                    @endphp
+
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td><a href="/invoices/{{ $invoice->invoice_number }}/details">{{ $invoice->invoice_number }}
+                                        </td>
+                                        <td>{{ $invoice->invoice_date }}</td>
+                                        <td>{{ $invoice->due_date }}</td>
+                                        <td>{{ $invoice->collected_amount }}</td>
+                                        <td>{{ $invoice->commission_amount }}</td>
+                                        <td>{{ $invoice->discount }}</td>
+                                        <td>{{ $invoice->value_vat }}</td>
+                                        <td>{{ $invoice->total }}</td>
+
+                                        @if ($invoice->status == 0)
+                                            <td class="text-danger">غير مدفوعة</td>
+                                        @elseif ($invoice->status == 1)
+                                            <td class="text-success	">مدفوعة</td>
+                                        @else
+                                            <td class="text-warning	">مدفوعة جزئيا</td>
+                                        @endif
+
+                                    </tr>
+                                    </a>
+                                @endforeach
 
 
                             </tbody>
@@ -60,9 +90,7 @@
             </div>
         </div>
 
-        @include('pages.sections.modals.add')
-        @include('pages.sections.modals.edit')
-        @include('pages.sections.modals.delete')
+
 
 
 

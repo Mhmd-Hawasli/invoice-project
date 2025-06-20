@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Sections\StoreSectionRequest;
-use App\Http\Requests\Sections\UpdateSectionRequest;
+use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Sections\StoreSectionRequest;
+use App\Http\Requests\Sections\UpdateSectionRequest;
 
 class SectionController extends Controller
 {
@@ -16,7 +17,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = Section::all();
-        return view('pages.sections.all-sections', compact('sections')); // Pass 'sections' as a string
+        return view('pages.sections.sections-dashboard', compact('sections')); // Pass 'sections' as a string
     }
     /**
      * Show the form for creating a new resource.
@@ -86,19 +87,22 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        try
-        {
+        try {
             // Delete the section
             $section->delete();
 
             // Redirect back with a success message
             return redirect()->back()->with('success', 'تم حذف القسم بنجاح');
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             // Redirect back with an error message
             return redirect()->back()->with('error', 'لم يتم حذف القسم بنجاح' . $e->getMessage());
         }
     }
-
+    /**
+     * Get a list of product names (with their IDs as keys) for a given section ID.
+     */
+    public function getProducts($sectionId)
+    {
+        return Product::where('section_id', $sectionId)->pluck('product_name', 'id');
+    }
 }

@@ -29,7 +29,7 @@
                 <div class="card-header pb-0">
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                            data-toggle="modal" href="#modaldemo8">إضافة منتج</a>
+                            data-toggle="modal" href="#addProductModal">إضافة منتج</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -83,9 +83,9 @@
             </div>
         </div>
 
-        @include('pages.products.modals.add')
-        @include('pages.products.modals.edit')
-        @include('pages.products.modals.delete')
+        @include('pages.products.modals.add-products')
+        @include('pages.products.modals.edit-products')
+        @include('pages.products.modals.delete-products')
 
 
 
